@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "a97ebfb1-7525-4d9a-8fc6-2561bddf8653",
+		"name": "Laravel lab2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48303402",
+		"_collection_link": "https://orange-meadow-2143903.postman.co/workspace/%D0%A1%D0%BE%D1%84%D1%96%D1%8F-%D0%9F%D0%BE%D0%B4%D0%BE%D0%BF%D1%80%D0%B8%D0%B3%D0%BE%D1%80%D0%B0's-Workspace~ab42cb85-331b-4207-8c9d-ed1209f19615/collection/48303402-a97ebfb1-7525-4d9a-8fc6-2561bddf8653?action=share&source=collection_link&creator=48303402"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Klava\",\n    \"email\": \"klavo4ka@example.com\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"klavo4ka@example.com\",\n    \"password\": \"password123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Project",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 6|I84dbc79yXzxbTjabAJBAVXvqwwiBh5wTZYLyYEp9a5665a5"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Project\",\n    \"description\": \"Project description\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Projects",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 6|I84dbc79yXzxbTjabAJBAVXvqwwiBh5wTZYLyYEp9a5665a5"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 6|I84dbc79yXzxbTjabAJBAVXvqwwiBh5wTZYLyYEp9a5665a5"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"New Task\",\n    \"description\": \"Task description\",\n    \"status\": \"todo\",\n    \"assignee_id\": 7\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/projects/6/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"projects",
+						"6",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 6|I84dbc79yXzxbTjabAJBAVXvqwwiBh5wTZYLyYEp9a5665a5"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/tasks/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 6|I84dbc79yXzxbTjabAJBAVXvqwwiBh5wTZYLyYEp9a5665a5"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"Halo\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/tasks/7/comments",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"7",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
