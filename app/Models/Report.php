@@ -15,4 +15,10 @@ class Report extends Model
         'payload',
         'path',
     ];
+
+    protected $casts = [
+        'payload' => 'array',
+        'period_start' => 'date',
+        'period_end' => 'date',
+    ];
 }
