@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\TaskUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +20,16 @@ class Task extends Model
         'priority',
         'due_date',
     ];
+
+    protected static function booted()
+    {
+        static::updated(function ($task) {
+            // Dispatch TaskUpdated event when task is updated
+            if ($task->wasChanged(['status', 'priority', 'assignee_id', 'title', 'description'])) {
+                TaskUpdated::dispatch($task->load(['project', 'assignee']));
+            }
+        });
+    }
 
     public function project()
     {

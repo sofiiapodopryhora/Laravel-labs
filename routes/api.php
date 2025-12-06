@@ -42,3 +42,29 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/send-queued', [TelegramController::class, 'sendMessageQueued']);
     });
 });
+
+// Testing routes for real-time functionality (without authentication)
+Route::post('/test-task-update', function () {
+    $task = \App\Models\Task::where('status', '!=', 'done')->first();
+    if ($task) {
+        $task->status = 'done';
+        $task->save();
+        return response()->json(['message' => 'Task updated successfully', 'task' => $task]);
+    }
+    return response()->json(['message' => 'No available task to update'], 404);
+});
+
+Route::post('/test-comment-create', function () {
+    $task = \App\Models\Task::first();
+    $user = \App\Models\User::first();
+    
+    if ($task && $user) {
+        $comment = \App\Models\Comment::create([
+            'task_id' => $task->id,
+            'author_id' => $user->id,
+            'body' => 'Test comment created at ' . now()->toTimeString()
+        ]);
+        return response()->json(['message' => 'Comment created successfully', 'comment' => $comment]);
+    }
+    return response()->json(['message' => 'Unable to create comment'], 404);
+});

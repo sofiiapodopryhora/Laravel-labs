@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\Comment;
+use App\Models\Task;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,18 +11,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CommentCreated implements ShouldBroadcast
+class TaskUpdated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Comment $comment;
+    public $task;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(Comment $comment)
+    public function __construct(Task $task)
     {
-        $this->comment = $comment;
+        $this->task = $task;
     }
 
     /**
@@ -33,8 +33,8 @@ class CommentCreated implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('project.' . $this->comment->task->project_id),
-            new Channel('project-public.' . $this->comment->task->project_id), // Public channel for testing
+            new PrivateChannel('project.' . $this->task->project_id),
+            new Channel('project-public.' . $this->task->project_id), // Public channel for testing
         ];
     }
 
@@ -43,7 +43,7 @@ class CommentCreated implements ShouldBroadcast
      */
     public function broadcastAs(): string
     {
-        return 'comment.created';
+        return 'task.updated';
     }
 
     /**
@@ -52,15 +52,16 @@ class CommentCreated implements ShouldBroadcast
     public function broadcastWith(): array
     {
         return [
-            'id' => $this->comment->id,
-            'body' => $this->comment->body,
-            'task_id' => $this->comment->task_id,
-            'task_title' => $this->comment->task->title,
-            'author' => [
-                'id' => $this->comment->author->id,
-                'name' => $this->comment->author->name,
-            ],
-            'created_at' => $this->comment->created_at->toISOString(),
+            'id' => $this->task->id,
+            'title' => $this->task->title,
+            'status' => $this->task->status,
+            'priority' => $this->task->priority,
+            'project_id' => $this->task->project_id,
+            'assignee' => $this->task->assignee ? [
+                'id' => $this->task->assignee->id,
+                'name' => $this->task->assignee->name,
+            ] : null,
+            'updated_at' => $this->task->updated_at->toISOString(),
         ];
     }
 }
